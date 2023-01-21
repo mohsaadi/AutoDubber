@@ -49,12 +49,12 @@ def process_video(video_id: str, language: str):
 def get_video(video: str) -> StreamingResponse:
     def video_stream():
         with open(f'tmp/{video}', 'rb') as f:
-            data = f.read(1024)
+            data = f.read(512)
             while data:
                 yield data
-                data = f.read(1024)
+                data = f.read(512)
 
-    return StreamingResponse(video_stream(), media_type="video/mp4")
+    return StreamingResponse(video_stream())
 
 
 

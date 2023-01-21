@@ -49,8 +49,10 @@ def mix_video_audio(video_id: str, language: str):
         return
     video = mpe.VideoFileClip(f"/home/msaadi/autodubber/tmp/{video_id}_tmp.mp4")
     audio_background = mpe.AudioFileClip(f"/home/msaadi/autodubber/tmp/{video_id}_{language}.wav")
-    final_clip = video.set_audio(audio_background)
-    final_clip.write_videofile(f"/home/msaadi/autodubber/tmp/{video_id}_{language}.mp4", fps=25)
+    video = video.set_audio(audio_background)
+
+    video.resize(width=480).write_videofile(f"/home/msaadi/autodubber/tmp/{video_id}_{language}.mp4", fps=30)
+    video.close()
     
 
 def download_video(video_id: str, language: str) -> str:  # Not completed yet

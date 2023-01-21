@@ -1,83 +1,85 @@
 <!DOCTYPE html>
 
-  <html>
+<html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Auto Dubber</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Auto Dubber</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="">
+</head>
 
-  <body>
+<body>
 
-    <h3>Listen to any YouTube Video with the language of your choice</h3>
-    <br>
+  <h3>Listen to any YouTube Video with the language of your choice</h3>
+  <br>
 
-    <form>
-      <label for="video-url">Enter video URL:</label>
-      <input style='width:350px;' type="text" id="video-url" name="video-url">
-      <label>Choose a language:</label>
-      <select id="language">
-        <option value="en">English</option>
-        <option value="fr">French</option>
-        <option value="sp">Spanish</option>
-        <option value="de">German</option>
-        <option value="ar">Arabic</option>
-        <option value="ru">Russian</option>
-        <option value="ch">Chinese</option>
-        <option value="ja">Japanese</option>
-        <option value="pt">Portuguese</option>
-        <option value="it">Italian</option>
-      </select>
+  <form>
+    <label for="video-url">Enter video URL:</label>
+    <input style='width:350px;' type="text" id="video-url" name="video-url">
+    <label>Choose a language:</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="sp">Spanish</option>
+      <option value="de">German</option>
+      <option value="ar">Arabic</option>
+      <option value="ru">Russian</option>
+      <option value="ch">Chinese</option>
+      <option value="ja">Japanese</option>
+      <option value="pt">Portuguese</option>
+      <option value="it">Italian</option>
+    </select>
 
-      <input type="submit" value="Submit">
-    </form>
+    <input type="submit" value="Submit">
+  </form>
 
-    <div id="progress-bar" style="display:none;">
-      <img width='10%' src='https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif' />
+  <div id="progress-bar" style="display:none;">
+    <img width='10%' src='https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif' />
 
-    </div>
+  </div>
 
-    <video id="video" style="display:none" controls>
-      Your browser does not support the video tag.
-    </video>
+  <video id="video" style="display:none" controls>
+    Your browser does not support the video tag.
+  </video>
 
-    <script>
+  <script>
 
-      function YouTubeGetID(url) {
-        url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-        return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
-      }
+    function YouTubeGetID(url) {
+      url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+      return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
+    }
 
-      var form = document.querySelector("form");
-      var video = document.querySelector("video");
-      var progressBar = document.querySelector("#progress-bar");
-      var bar = document.querySelector("#bar");
+    var form = document.querySelector("form");
+    var video = document.querySelector("video");
+    var progressBar = document.querySelector("#progress-bar");
+    var bar = document.querySelector("#bar");
 
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        video.addEventListener("canplaythrough", function () {
-          progressBar.style.display = "none";
-          video.style.display = "block";
-        });
-
-        var videoUrl = document.querySelector("#video-url").value;
-        var language = document.querySelector("#language").value;
-        var videoID = YouTubeGetID(videoUrl);
-
-        fetch('/process?video_id=' + videoID + '&language=' + language)
-
-        video.src = '/video/' + videoID + '_' + language + '.mp4';
-        console.log(video.src);
-        video.style.display = "none";
-        progressBar.style.display = "block";
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      video.addEventListener("canplaythrough", function () {
+        progressBar.style.display = "none";
+        video.style.display = "block";
       });
 
-    </script>
+      var videoUrl = document.querySelector("#video-url").value;
+      var language = document.querySelector("#language").value;
+      var videoID = YouTubeGetID(videoUrl);
 
-  </body>
+      video.style.display = "none";
+      progressBar.style.display = "block";
 
-  </html>
+      await fetch('/process?video_id=' + videoID + '&language=' + language)
+
+      video.src = '/video/' + videoID + '_' + language + '.mp4';
+      console.log(video.src);
+
+    });
+
+  </script>
+
+</body>
+
+</html>

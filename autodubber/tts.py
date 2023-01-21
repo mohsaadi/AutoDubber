@@ -40,8 +40,7 @@ def convert_to_speech(ssml_string, fname):
     
     
 
-
-def prepare_text(transcript: list) -> str:
+def prepare_text(transcript: list, language: str) -> str:
     """Create and returns ssml string"""
     text = '<speak version="1.0" xmlns="https://www.w3.org/2001/10/synthesis" xml:lang="ar-SA"> \n<voice  name="ar-SA-HamedNeural">'
 
