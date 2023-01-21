@@ -1,8 +1,8 @@
 import logging
 
 import uvicorn
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from autodubber.transcript import extract_translation
@@ -37,13 +37,24 @@ def process_video(video_id: str, language: str):
         logger.info(f'{tts_result=}')
 
         download_video(video_id, language)
-        logger.info('came here')
 
         if tts_result == 'success':
             mix_video_audio(video_id, language)
 
     except Exception as e:
         logger.exception(e)
+
+
+@app.get("/video/{video}")
+def get_video(video: str) -> StreamingResponse:
+    def video_stream():
+        with open(f'tmp/{video}', 'rb') as f:
+            data = f.read(1024)
+            while data:
+                yield data
+                data = f.read(1024)
+
+    return StreamingResponse(video_stream(), media_type="video/mp4")
 
 
 

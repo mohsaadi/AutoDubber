@@ -70,7 +70,7 @@
 
         fetch('/process?video_id=' + videoID + '&language=' + language)
 
-        video.src = '/videos/' + videoID + '_' + language + '.mp4';
+        video.src = '/video/' + videoID + '_' + language + '.mp4';
         console.log(video.src);
         video.style.display = "none";
         progressBar.style.display = "block";
