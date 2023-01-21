@@ -5,3 +5,4 @@ Next Steps:
 3. Add progress bar showing progress for video downloading, transcript extraction and processing.
 3. Improve Web App UX and styling.
 4. Improve TTS time sync and quality.
+5. Try to processes and stream chunks rather than playing video when all of it is completed.

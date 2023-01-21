@@ -27,7 +27,7 @@ def convert_to_speech(ssml_string, fname):
         speech_config=speech_config, audio_config=None
     )
 
-    result = speech_synthesizer.speak_ssml(ssml_string).get()
+    result = speech_synthesizer.speak_ssml(ssml_string)
     
     # Check result
     if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:

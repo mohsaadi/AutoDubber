@@ -14,12 +14,12 @@ def get_downloaded_videos_ids() -> list:
     return files
 
 
-def download(video_id: str) -> str:
+def download(video_id: str, language) -> str:
     """Download YouTube video"""
 
     # Check if video and audio already downloaded and generated.
     ids = get_downloaded_videos_ids()
-    if f"{video_id}.mp4" in ids:
+    if f"{video_id}_{language}.mp4" in ids:
         logger.info(f"Video {video_id} was processed already...")
         return "processed"
     elif f"{video_id}_tmp.mp4" in ids:
@@ -41,16 +41,19 @@ def download(video_id: str) -> str:
     return video_file
 
 
-def mix_video_audio(video_id: str):
+def mix_video_audio(video_id: str, language: str):
     """Mix the video with the audio of the synthesized speech"""
+
+    ids = get_downloaded_videos_ids()
+    if f"{video_id}_{language}.mp4" in ids:
+        return
     video = mpe.VideoFileClip(f"/home/msaadi/autodubber/tmp/{video_id}_tmp.mp4")
-    audio_background = mpe.AudioFileClip(f"/home/msaadi/autodubber/tmp/{video_id}.wav")
+    audio_background = mpe.AudioFileClip(f"/home/msaadi/autodubber/tmp/{video_id}_{language}.wav")
     final_clip = video.set_audio(audio_background)
-    final_clip.write_videofile(f"/home/msaadi/autodubber/tmp/{video_id}.mp4", fps=25)
-    os.remove(f"/home/msaadi/autodubber/tmp/{video_id}_tmp.mp4")
+    final_clip.write_videofile(f"/home/msaadi/autodubber/tmp/{video_id}_{language}.mp4", fps=25)
+    
 
-
-def download_video(video_id: str) -> str:  # Not completed yet
+def download_video(video_id: str, language: str) -> str:  # Not completed yet
     """Make the sync download into async"""
-    video_file = download(video_id)
+    video_file = download(video_id, language)
     return video_file
