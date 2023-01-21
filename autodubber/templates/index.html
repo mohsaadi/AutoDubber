@@ -1,6 +1,20 @@
 <form>
   <label for="video-url">Enter video URL:</label>
   <input style='width:350px;' type="text" id="video-url" name="video-url">
+  <label>Choose a language:</label>
+  <select id="language">
+    <option value="en">English</option>
+    <option value="fr">French</option>
+    <option value="sp">Spanish</option>
+    <option value="de">German</option>
+    <option value="ar">Arabic</option>
+    <option value="ru">Russian</option>
+    <option value="ch">Chinese</option>
+    <option value="ja">Japanese</option>
+    <option value="pt">Portuguese</option>
+    <option value="it">Italian</option>
+  </select>
+
   <input type="submit" value="Submit">
 </form>
 
@@ -33,9 +47,10 @@
     });
 
     var videoUrl = document.querySelector("#video-url").value;
+    var language = document.querySelector("#language").value;
     var videoID = YouTubeGetID(videoUrl);
 
-    fetch('/process?video_id=' + videoID)
+    fetch('/process?video_id=' + videoID + '&language=' + language)
 
     video.src = '/videos/' + videoID + '.mp4';
     console.log(video.src);

@@ -28,10 +28,10 @@ async def root() -> HTMLResponse:
 
 
 @app.get("/process")
-def process_video(video_id: str):
+def process_video(video_id: str, language: str):
 
     try:
-        translated_list = extract_translation(video_id, "ar")
+        translated_list = extract_translation(video_id, language)
         text = prepare_text(translated_list)
         tts_result = convert_to_speech(text, f"/home/msaadi/autodubber/tmp/{video_id}.wav")
         logger.info(f'{tts_result=}')
