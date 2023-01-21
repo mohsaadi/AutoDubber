@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <title>Video API</title>
+</head>
+
+<body>
+    <form id="youtubeForm" method="post" action="">
+        <label for="videoUrl">Enter Youtube Video URL</label>
+        <input type="text" id="videoUrl" name="videoUrl">
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="video-player-container"></div>
+    <div id="videoContainer"></div>
+    
+    <script type="text/javascript">
+        document.getElementById('youtubeForm').onsubmit = async function (e) {
+            e.preventDefault();
+            var videoUrl = document.getElementById('videoUrl').value;
+            document.getElementById('video-player-container').innerHTML = '<iframe width="560" height="315" src="' + videoUrl.replace('watch?v=', 'embed\\') + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+
+            const response = await fetch(event.target.action, {
+                method: event.target.method,
+                body: new FormData(event.target)
+            });
+            const data = await response.json();
+            document.querySelector('#videoContainer').innerHTML = `
+          <video width="320" height="240" controls>
+            <source src="${data.url}" type="video/mp4">
+          </video>`;
+        }
+    </script>
+
+</body>
+
+</html>

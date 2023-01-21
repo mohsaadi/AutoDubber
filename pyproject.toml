@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "autodubber"
+version = "0.1.0"
+description = "auto dubs youtube videos"
+authors = ["Mohammed Saadi"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.9"
+youtube-transcript-api = "^0.5.0"
+azure-cognitiveservices-speech = "^1.24.2"
+youtube-dl = "^2021.12.17"
+moviepy = "^1.0.3"
+fastapi = "^0.89.1"
+uvicorn = "^0.20.0"
+
+[tool.poetry.scripts]
+start = ""
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

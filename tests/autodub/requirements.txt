@@ -1,0 +1,3 @@
+youtube_transcript_api
+pyttsx3
+azure-cognitiveservices-speech
