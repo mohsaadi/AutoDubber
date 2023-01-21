@@ -1,30 +1,6 @@
 import os
 import azure.cognitiveservices.speech as speechsdk
-
-speech_key = "70c558fb96704d5ebe3a3e259c9ad94d"
-service_region = "eastus"
-
-languages = {
-    'en': 'en-US',
-    'ar': 'ar-SA',
-    'es': 'es-ES',
-    'fr': 'fr-FR',
-    'it': 'it-IT',
-    'de': 'de-DE',
-    'ru': 'ru-RU'
-}
-
-voices = {
-    'en': 'en-US-JessaRUS',
-    'ar': 'ar-SA-HamedNeural',
-    'es': 'es-ES-LauraApollo',
-    'fr': 'fr-FR-HortenseRUS',
-    'it': 'it-IT-CosimoApollo',
-    'de': 'de-DE-HeddaRUS',
-    'ru': 'ru-RU-IrinaApollo'
-
-}
-
+from autodubber.config import voices, languages, SPEECH_KEY, SPEECH_KEY
 
 def get_processed_audio_ids() -> list:
     """Returns IDs of videos already donwloaded"""
@@ -40,7 +16,7 @@ def convert_to_speech(ssml_string, fname):
         return 'success'
 
     speech_config = speechsdk.SpeechConfig(
-        subscription=speech_key, region=service_region
+        subscription=SPEECH_KEY, region=SPEECH_KEY
     )
 
     # Creates a speech synthesizer using the default speaker as audio output.

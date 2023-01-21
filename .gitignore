@@ -164,3 +164,4 @@ cython_debug/
 tmp/
 git_create.sh
 log.out
+*.mp3

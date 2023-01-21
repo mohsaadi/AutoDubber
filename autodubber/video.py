@@ -51,7 +51,7 @@ def mix_video_audio(video_id: str, language: str):
     audio_background = mpe.AudioFileClip(f"/home/msaadi/autodubber/tmp/{video_id}_{language}.wav")
     video = video.set_audio(audio_background)
 
-    video.resize(width=480).write_videofile(f"/home/msaadi/autodubber/tmp/{video_id}_{language}.mp4", fps=30)
+    video.resize(width=240).write_videofile(f"/home/msaadi/autodubber/tmp/{video_id}_{language}.mp4", fps=10)
     video.close()
     
 
