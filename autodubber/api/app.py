@@ -32,7 +32,7 @@ def process_video(video_id: str, language: str):
 
     try:
         translated_list = extract_translation(video_id, language)
-        text = prepare_text(translated_list)
+        text = prepare_text(translated_list, language)
         tts_result = convert_to_speech(text, f"/home/msaadi/autodubber/tmp/{video_id}_{language}.wav")
         logger.info(f'{tts_result=}')
 

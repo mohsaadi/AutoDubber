@@ -39,10 +39,9 @@ def convert_to_speech(ssml_string, fname):
     return 'failure'
     
     
-
 def prepare_text(transcript: list, language: str) -> str:
     """Create and returns ssml string"""
-    text = '<speak version="1.0" xmlns="https://www.w3.org/2001/10/synthesis" xml:lang="ar-SA"> \n<voice  name="ar-SA-HamedNeural">'
+    text = f'<speak version="1.0" xmlns="https://www.w3.org/2001/10/synthesis" xml:lang="{languages.get("language", "ar")}"> \n<voice  name="{voices.get("language", "ar-SA-HamedNeural" )}">'
 
     start = transcript[0].get("start", 0)
     text += f'\n <break time="{start}s"/> \n'
@@ -52,3 +51,25 @@ def prepare_text(transcript: list, language: str) -> str:
 
     text += "\n</voice>\n</speak>"
     return text
+
+
+languages = {
+    'en': 'en-US',
+    'ar': 'ar-SA',
+    'es': 'es-ES',
+    'fr': 'fr-FR',
+    'it': 'it-IT',
+    'de': 'de-DE',
+    'ru': 'ru-RU'
+}
+
+voices = {
+    'en': 'en-US-JessaRUS',
+    'ar': 'ar-SA-HamedNeural',
+    'es': 'es-ES-LauraApollo',
+    'fr': 'fr-FR-HortenseRUS',
+    'it': 'it-IT-CosimoApollo',
+    'de': 'de-DE-HeddaRUS',
+    'ru': 'ru-RU-IrinaApollo'
+
+}
